@@ -1,0 +1,95 @@
+
+
+
+
+
+<div *ngIf="!user.nombre" class="card" style="width: 70%; ">
+    <div class="card-body">
+      <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+    </div>
+  </div>
+  
+  
+  
+  
+  <div *ngIf="user.nombre" class="card" style="width: 70%; ">
+    <table>
+      <tr>
+        <td >
+          <div class="card-body">
+            <img *ngIf="!user.foto" src="../../../../assets/img/sin-imagen.png" class="card-img-top " alt="...">
+            <img *ngIf="user.foto" src="{{url+'/Articulos/GetImage/'+user.foto}}" class="card-img-top " alt="...">
+          </div>
+        </td>
+        <td >
+          <div class="card-body">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Rol</h5>
+              <p class="card-text">
+                {{user.rol}}
+              </p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+   
+    <div class="card-body">
+        <div class="card-columns">
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Nombre</h5>
+              <p class="card-text">
+                {{user.nombre}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Tipo documento</h5>
+              <p class="card-text">
+                {{user.tipo_documento}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title"># Documento</h5>
+              <p class="card-text">
+                {{user.num_documento}}
+              </p>
+              </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Direccion</h5>
+              <p class="card-text">
+                {{user.direccion}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Telefono</h5>
+              <p class="card-body">
+                {{user.telefono}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Email</h5>
+              <p class="card-body">
+                {{user.email}}
+              </p>
+            </div>
+          </div>
+
+        </div>
+  
+        <a [routerLink]="['/user']" class="btn btn-primary" title="Cancelar y regresar">
+          <i class="ti-arrow-left" aria-hidden="true"></i>
+        </a>
+  
+    </div>
+  </div>

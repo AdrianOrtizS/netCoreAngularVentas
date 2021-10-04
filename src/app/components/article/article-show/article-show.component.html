@@ -1,0 +1,104 @@
+
+
+<div *ngIf="!article.nombre" class="card" style="width: 70%; ">
+  <div class="card-body">
+    <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+  </div>
+</div>
+
+
+
+
+<div *ngIf="article.nombre" class="card" style="width: 70%; ">
+  <table>
+    <tr>
+      <td >
+        <div class="card-body">
+          <img *ngIf="!article.foto" src="../../../../assets/img/sin-imagen.png" class="card-img-top article-show" alt="...">
+          <img *ngIf="article.foto" src="{{url+'/Articulos/GetImage/'+article.foto}}" class="card-img-top article-show" alt="...">
+        </div>
+      </td>
+      <td >
+        <div class="card-body">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Codigo</h5>
+            <p class="card-text">
+              {{article.codigo}}
+            </p>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+ 
+  <div class="card-body">
+      <div class="card-columns">
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Nombre</h5>
+            <p class="card-text">
+              {{article.nombre}}
+            </p>
+          </div>
+        </div>
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Categoria</h5>
+            <p class="card-text">
+              {{article.categoria}}
+            </p>
+          </div>
+        </div>
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Precio compra</h5>
+            <p class="card-text">
+              {{article.precio_compra}}
+            </p>
+            </div>
+        </div>
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Precio venta</h5>
+            <p class="card-text">
+              {{article.precio_venta}}
+            </p>
+            </div>
+        </div>
+
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Stock</h5>
+            <p class="card-text">
+              {{article.stock}}
+            </p>
+          </div>
+        </div>
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Descripcion</h5>
+            <p class="card-body">
+              {{article.descripcion}}
+            </p>
+          </div>
+        </div>
+        <div class="card ">
+          <div class="card-body text-muted">
+            <h5 class="card-title">Tipo Articulo</h5>
+            
+              
+              <ul class="list-group" *ngFor="let t of article.tiposArt">
+                <li class="list-group-item">{{t.tipoArticulo}}</li>
+              </ul>
+
+            
+          </div>
+        </div>
+      </div>
+
+      <a [routerLink]="['/article']" class="btn btn-primary" title="Cancelar y regresar">
+        <i class="ti-arrow-left" aria-hidden="true"></i>
+      </a>
+
+  </div>
+</div>

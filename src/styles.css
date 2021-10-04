@@ -1,1 +1,52 @@
-/* You can add global styles to this file, and also import other style files */
+
+/* imagen de articulo new*/
+.pequeña{
+    width: 50px; height: 50px;
+}
+.mediana{
+    width: 100px; height: 100px;
+}
+.grande{
+    width: 200px; height: 200px;
+}
+
+.article-show{
+    width: 100%;
+    height: 400px;
+    background-color: #ff00ff; /*Tu IMAGEN*/
+  }
+
+
+
+/*GIRAR IMAGEN 360*/
+.rotate_03{
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+@-webkit-keyframes spin{
+    100%{-webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes spin{
+    100%{-webkit-transform: rotate(360deg);}
+}
+@keyframes spin{
+    100%{-webkit-transform: rotate(360deg);}
+}
+
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}

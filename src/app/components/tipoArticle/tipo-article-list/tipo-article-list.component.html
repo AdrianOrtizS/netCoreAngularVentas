@@ -1,0 +1,175 @@
+
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+  
+        <h3 class="font-weight-bold mt-2 mb-2 ml-2">{{page_title}}</h3>
+  
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn btn-primary btn-icon-text float-right" [routerLink]="['/tipoArticle-new']" title="Nuevo">
+                <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                Nuevo
+              </button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-icon-text  " (click)="pdfTipoArticles()" title="Exportar Pdf">
+                  <i class="ti-printer btn-icon-prepend" aria-hidden="true"></i>
+                </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card-body">
+          
+          <div *ngIf="!tipoArticulos">
+            <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+          </div>
+          
+  
+          <div *ngIf="tipoArticulos">
+           
+            <div class="form-group row">
+              <div class="col-md-10">
+                <div class="input-group">
+                  
+                  <input type="text" id="tipoArticulo" name="tipoArticulo" [(ngModel)]="tipoArticulo.tipoArticulo"  class="form-control" autocomplete="off" placeholder="Texto a buscar"  >
+                  <button type="button" class="btn btn-info" (click)="searchTipoArticle(tipoArticulo.tipoArticulo)" title="Buscar">
+                    <i class="ti-search"></i> 
+                  </button>
+                  <button type="button" class="btn btn-light" (click)="getTipoArticle(1, this.cantidadRegistrosAMostrar)" title="Recargar">
+                    <i class="ti-reload fa-rotate-90" aria-hidden="true" ></i> 
+                  </button>
+                  
+                </div>
+              </div>
+            </div>
+  
+          
+          
+            <div class="table-responsive" >
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                      <th>Opciones</th>
+                      <th>Tipo Articulo</th>
+                      <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tipo of tipoArticulos | paginate: {
+                                                    itemsPerPage: cantidadRegistrosAMostrar,
+                                                    currentPage: paginaActual,
+                                                    totalItems: cantidadTotalRegistros }">
+                    <td >
+   
+                      <!-- Button VIEW-->                 
+                      <button type="button" class="btn btn-outline-success btn-fw btn-rounded btn-icon" [routerLink]="['/tipoArticle-show',tipo.idTipoArticulo]" title="Ver">
+                        <i class="ti-eye"></i>
+                      </button>
+                    
+                      <!-- Button UPDATE-->                 
+                      <button type="button" class="btn btn-outline-warning btn-fw btn-rounded btn-icon" [routerLink]="['/tipoArticle-update',tipo.idTipoArticulo]" title="Actualizar">
+                        <i class="ti-marker-alt"></i>
+                      </button>
+    
+                      <!-- Button trigger modal DESACTIVAR-->                 
+                      <button type="button" *ngIf="tipo.condicion==true" class="btn btn-outline-danger btn-fw btn-rounded btn-icon" data-toggle="modal" [attr.data-target]="'#desactivarModal'+tipo.idTipoArticulo" title="Desactivar">
+                          <i class="ti-trash"></i>
+                      </button>
+                      <!-- Modal Desactivar-->
+                      <div class="modal fade" id="{{'desactivarModal'+tipo.idTipoArticulo}}" tabindex="-1" role="dialog" aria-labelledby="desactivarModalLabel" style="display: none;" aria-hidden="true">
+                          <div class="modal-dialog modal-danger" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title" >Desactivar tipo articulo</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">x</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                ¿Estás seguro de desactivar tipo articulo {{tipo.nombre}} ?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="desactivateTipoArticle(tipo.idTipoArticulo)">Desactivar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <!-- Fin Modal -->
+                      
+                      <!-- Button trigger modal ACTIVAR-->                 
+                      <button type="button" *ngIf="tipo.condicion==false" class="btn btn-outline-info btn-fw btn-rounded btn-icon" data-toggle="modal" [attr.data-target]="'#activarModal'+tipo.idTipoArticulo" title="Activar">
+                        <i class="ti-check"></i>
+                      </button>
+                      <!-- Modal Activar-->
+                      <div class="modal fade" id="{{'activarModal'+tipo.idTipoArticulo}}" tabindex="-1" role="dialog" aria-labelledby="activarModalLabel" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-info" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title" >Activar tipo articulo</h4>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              ¿Estás seguro de activar tipo articulo {{tipo.tipoArticulo}} ?
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-info" data-dismiss="modal" (click)="activateTipoArticle(tipo.idTipoArticulo)">Activar</button>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Fin Modal -->
+    
+                    </td>
+                    
+                    <td>{{tipo.tipoArticulo}}</td>
+                  
+                    <td>
+                        <div *ngIf="tipo.condicion == true">
+                            <span class="badge badge-success">Activo</span>
+                        </div>
+                        <div *ngIf="tipo.condicion == false">
+                            <span class="badge badge-danger">Inactivo</span>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+    
+              <div class="form-group-row">
+                <div class="col-md-6 float-left">
+                  <pagination-controls responsive="true"
+                                        previousLabel="Ant"
+                                        nextLabel="Sig"
+                                        (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </div>
+      
+                <div class="col-md-2 float-right">
+                    <select (change)="onTableSizesChanges($event)" class="custom-select">
+                      <option *ngFor="let size of tableSizes" [ngValue]="size">
+                          {{size}}
+                      </option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  

@@ -1,0 +1,177 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-10 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ingrese informacion</p>
+                
+                <form #articleForm="ngForm" (ngSubmit)="onSubmit(articleForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample" >
+
+                    <div class="container">
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-6 col-lg-6 col-xl-6 mt-3 ml-2">
+                                <label for="category"><strong>Categoria</strong></label>
+                                <select id="category" name="category" #category="ngModel" [(ngModel)]="article.idcategoria" class="form-control" required>
+                                    <option value="0">-Seleccione categoria-</option>
+                                    <option *ngFor="let cat of categories"  value="{{cat.idcategoria}}">
+                                        {{cat.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="codigo"><strong>Codigo</strong></label>
+                                <input type="text" name="codigo" #codigo="ngModel" [(ngModel)]="article.codigo" autocomplete="off"  class="form-control" placeholder="Ingrese codigo....."  required/>        
+                                <small *ngIf="!codigo.valid && codigo.touched" class="invalid-feedback d-block">
+                                    Ingrese codigo
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-3 ml-2">
+                                <label for="nombre"><strong>Nombre</strong></label>
+                                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="article.nombre" autocomplete="off"  class="form-control" placeholder="Ingrese nombre....." required/>        
+                                <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                                    Ingrese nombre
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="precio_compra"><strong>Precio compra</strong></label>
+                                <input type="text" name="precio_compra" #precio_compra="ngModel" [(ngModel)]="article.precio_compra" class="form-control" placeholder="Ingrese precio compra....." required/>        
+                                <small *ngIf="!precio_compra.valid && precio_compra.touched" class="invalid-feedback d-block">
+                                    Ingrese precio compra
+                                </small>
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="utilidad"><strong>Utilidad</strong></label>
+                                <input type="text" name="utilidad" #utilidad="ngModel" [(ngModel)]="article.utilidad" (keyup)="calcularUtilidad(article.utilidad)" class="form-control" placeholder="Ingrese utilidad....." required/>        
+                                <small *ngIf="!utilidad.valid && utilidad.touched" class="invalid-feedback d-block">
+                                    Ingrese utilidad
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row">    
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="precio_venta"><strong>Precio venta</strong></label>
+                                <input type="text" name="precio_venta" #precio_venta="ngModel" [(ngModel)]="article.precio_venta" class="form-control" placeholder="Ingrese precio venta....." required/>        
+                                <small *ngIf="!precio_venta.valid && precio_venta.touched" class="invalid-feedback d-block">
+                                    Ingrese precio venta
+                                </small>
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="stock"><strong>Stock</strong></label>
+                                <input type="text" name="stock" #stock="ngModel" [(ngModel)]="article.stock" class="form-control" placeholder="Ingrese stock....." required/>        
+                                <small *ngIf="!stock.valid && stock.touched" class="invalid-feedback d-block">
+                                    Ingrese stock
+                                </small>
+                            </div>
+                        </div>
+        
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-3 ml-2">
+                                <label for="descripcion"><strong>Descripcion</strong></label>
+                                <textarea rows="4" cols="50" name="descripcion" #descripcion="ngModel" [(ngModel)]="article.descripcion" class="form-control" placeholder="Ingrese descripcion....." required>
+                                </textarea>
+                                <small *ngIf="!descripcion.valid && descripcion.touched" class="invalid-feedback d-block">
+                                    Ingrese descripcion
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-3 ml-2">
+                                <label for="iva"><strong>Iva</strong></label>
+                                  <div class="form-check mx-sm-2">
+                                      <input type="checkbox" class="form-control" name="iva" #iva="ngModel" [(ngModel)]="article.iva" checked>
+                                      (Seleccione si articulo tiene iva)
+                                  </div> 
+                            </div>
+                        </div>
+
+                        <div class="row ">
+
+                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 ml-2">
+                                <label for="art_Tipo"><strong>Tipo articulo</strong></label>
+                                
+                                <div class="list-group checkbox-list-group">
+                                    <div class="list-group-item">
+                                        &nbsp;<label>
+                                            <div *ngFor="let tArt of tiposArticulo">
+                                                <input type="checkbox" (change)="checked(tArt)">
+                                                   <i class="fa fa-fw"></i> 
+                                                    {{tArt.tipoArticulo}}
+                                                
+                                            </div>
+                                            
+                                        </label>
+                                    </div>
+                                    <!-- <div class="list-group-item list-group-item-success"><label>&nbsp;<input type="checkbox"><span class="list-group-item-text"><i class="fa fa-fw"></i> Success</span></label></div>
+                                    <div class="list-group-item list-group-item-info"><label>&nbsp;<input type="checkbox"><span class="list-group-item-text"><i class="fa fa-fw"></i> Info</span></label></div>
+                                    <div class="list-group-item list-group-item-warning"><label>&nbsp;<input type="checkbox"><span class="list-group-item-text"><i class="fa fa-fw"></i> Warning</span></label></div>
+                                    <div class="list-group-item list-group-item-danger"><label>&nbsp;<input type="checkbox"><span class="list-group-item-text"><i class="fa fa-fw"></i> Danger</span></label></div> -->
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-4 mb-3">
+                                <label for="foto" ><strong> Foto</strong></label>
+                                <div  *ngIf="article.foto" class="mt-2 mb-3 ml-5">
+                                    <td><img src="{{url + '/Articulos/GetImage/' + article.foto}}" class="mediana"></td>
+                                </div>  
+    
+                                <div  *ngIf="!article.foto" class="mt-2 mb-3 ml-5">
+                                    <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                                </div>
+                                
+                                
+                                <angular-file-uploader 
+                                    [config]="afuConfig"
+                                    [resetUpload]=resetVar
+                                    (ApiResponse)="imageUpload($event)">
+                                </angular-file-uploader>
+    
+                            </div>
+                        </div>
+
+                        <!-- <input type="file" #fileInput (change)="onFileInput(fileInput.files)" /> -->
+        
+                    </div>
+                    
+                    <div class="ml-2">
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text" [disabled]="articleForm.invalid" title="Guardar">
+                            <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                        
+                        <a [routerLink]="['/article']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+
+                    
+                </form>
+
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>
+
+

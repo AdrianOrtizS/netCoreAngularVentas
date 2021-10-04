@@ -1,0 +1,78 @@
+
+
+
+
+
+<div *ngIf="!provider.nombre" class="card" style="width: 70%; ">
+    <div class="card-body">
+      <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+    </div>
+  </div>
+  
+  
+  
+  
+  <div *ngIf="provider.nombre" class="card" style="width: 70%; ">
+    <table>
+      <tr>
+        <td >
+          <div class="card-body">
+            <img *ngIf="!provider.foto" src="../../../../assets/img/sin-imagen.png" class="card-img-top " alt="...">
+            <img *ngIf="provider.foto" src="{{url+'/Articulos/GetImage/'+provider.foto}}" class="card-img-top " alt="...">
+          </div>
+        </td>
+        <td >
+          <div class="card-body">
+            <div class="card-body text-muted">
+              <h5 class="card-title"># Documento</h5>
+              <p class="card-text">
+                {{provider.num_documento}}
+              </p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+   
+    <div class="card-body">
+        <div class="card-columns">
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Nombre</h5>
+              <p class="card-text">
+                {{provider.nombre}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Direccion</h5>
+              <p class="card-text">
+                {{provider.direccion}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Telefono</h5>
+              <p class="card-text">
+                {{provider.telefono}}
+              </p>
+              </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Email</h5>
+              <p class="card-text">
+                {{provider.email}}
+              </p>
+            </div>
+          </div>
+        </div>
+  
+        <a [routerLink]="['/provider']" class="btn btn-primary" title="Cancelar y regresar">
+          <i class="ti-arrow-left" aria-hidden="true"></i>
+        </a>
+  
+    </div>
+  </div>

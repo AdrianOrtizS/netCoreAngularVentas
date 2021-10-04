@@ -1,0 +1,153 @@
+
+
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+  
+        <h3 class="font-weight-bold mt-2 mb-2 ml-2">{{page_title}}</h3>
+  
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn btn-primary btn-icon-text float-right"  [routerLink]="['/ingreso-new']" title="Nuevo">
+                <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                Nuevo
+              </button>
+            </div>
+            <div>
+                <!-- <button type="button" class="btn btn-primary btn-icon-text" (click)="pdfIngresos()" title="Exportar Pdf">
+                  <i class="ti-printer btn-icon-prepend" aria-hidden="true"></i>
+                </button> -->
+            </div>
+          </div>
+        </div>
+  
+        <div class="card-body">
+          
+          <div *ngIf="!ingresos">
+            <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+          </div>
+          
+  
+          <div *ngIf="ingresos">
+            <div class="form-group row">
+              <div class="col-md-10">
+                <div class="input-group">
+                  <select class="form-control col-md-3" [(ngModel)]="campoBuscar" (change)="buscarPor()" >
+                    <option value="nombre">Nombre</option>
+                    <option value="num_comprobante"># Comprobante</option>
+                  </select>
+                  <input type="text" id="ingreso" name="ingreso" [(ngModel)]="ingreso.num_comprobante"  class="form-control" autocomplete="off" placeholder="Texto a buscar"  >
+                  <button type="button" class="btn btn-info" (click)="searchIngreso(ingreso.num_comprobante)" title="Buscar">
+                    <i class="ti-search"></i> 
+                  </button>
+                  <button type="button" class="btn btn-light" (click)="getIngreso(1, this.cantidadRegistrosAMostrar)" title="Recargar">
+                    <i class="ti-reload fa-rotate-90" aria-hidden="true" ></i> 
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+          
+          
+            <div class="table-responsive" >
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                      <th>Opciones</th>
+                      <th>Nombre Proveedor</th>
+                      <th>Tipo comprobante</th>
+                      <th># Comprobante</th>
+                      <th>Total</th>
+                      <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ing of ingresos | paginate: {
+                                                    itemsPerPage: cantidadRegistrosAMostrar,
+                                                    currentPage: paginaActual,
+                                                    totalItems: cantidadTotalRegistros }">
+                    <td >
+                      <!-- Button VIEW-->                 
+                      <button type="button" class="btn btn-outline-success btn-fw btn-rounded btn-icon" [routerLink]="['/ingreso-show',ing.idingreso]" title="Ver">
+                        <i class="ti-eye"></i>
+                      </button>
+
+
+                      <!-- Button trigger modal Anular-->                 
+                      <button type="button" *ngIf="ing.estado=='Aceptado'" class="btn btn-outline-danger btn-fw btn-rounded btn-icon" data-toggle="modal" [attr.data-target]="'#anularModal'+ing.idingreso" title="Anular">
+                          <i class="ti-trash"></i>
+                      </button>
+                      <!-- Modal Anular-->
+                      <div class="modal fade" id="{{'anularModal'+ing.idingreso}}" tabindex="-1" role="dialog" aria-labelledby="anularModalLabel" style="display: none;" aria-hidden="true">
+                          <div class="modal-dialog modal-danger" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title" >Anular ingreso</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">x</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                ¿Estás seguro de anular ingreso {{ing.num_comprobante}} ?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="anularIngreso(ing.idingreso)">Anular</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <!-- Fin Modal -->
+                    </td>
+                    
+                    <td>{{ing.proveedor}}</td>
+                    <td>{{ing.tipo_comprobante}}</td>
+                    <td>{{ing.serie_comprobante}} - {{ing.num_comprobante}}</td>
+                    
+                    <td>{{ing.total}}</td>
+                  
+                    <td>
+                        <div *ngIf="ing.estado == 'Aceptado'">
+                            <span class="badge badge-success">Aceptado</span>
+                        </div>
+                        <div *ngIf="ing.estado != 'Aceptado'">
+                            <span class="badge badge-danger">Anulado</span>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+  
+              
+              <div class="form-group-row">
+                <div class="col-md-6 float-left">
+                  <pagination-controls responsive="true"
+                                        previousLabel="Ant"
+                                        nextLabel="Sig"
+                                        (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </div>
+      
+                <div class="col-md-2 float-right">
+                    <select (change)="onTableSizesChanges($event)" class="custom-select">
+                      <option *ngFor="let size of tableSizes" [ngValue]="size">
+                          {{size}}
+                      </option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  

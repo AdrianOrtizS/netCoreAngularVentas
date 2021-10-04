@@ -1,0 +1,65 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-10 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Verifique informacion</p>
+                
+                <form #configForm="ngForm" (ngSubmit)="onSubmit(configForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample" >
+
+                    <div class="container">
+
+                        <div class="row ">
+                            
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="descripcion"><strong>Descripcion</strong></label>
+                                <input type="text" name="descripcion" #descripcion="ngModel" [(ngModel)]="config.descripcion" autocomplete="off"  class="form-control" readonly placeholder="Ingrese descripcion....."  required/>        
+                                <small *ngIf="!descripcion.valid && descripcion.touched" class="invalid-feedback d-block">
+                                    Ingrese descripcion
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-3 ml-2">
+                                <label for="valor"><strong>Valor</strong></label>
+                                <input type="text" name="valor" #valor="ngModel" [(ngModel)]="config.valor" class="form-control"  />        
+                                <small *ngIf="!valor.valid && valor.touched" class="invalid-feedback d-block">
+                                    Ingrese valor
+                                </small>
+                            </div>
+                        </div>
+
+                        
+        
+                    </div>
+                    
+                    <div class="ml-2 mt-3">
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text" [disabled]="configForm.invalid" title="Guardar">
+                            <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                        
+                        <a [routerLink]="['/configuration']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+
+                    
+                </form>
+
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>
+
+

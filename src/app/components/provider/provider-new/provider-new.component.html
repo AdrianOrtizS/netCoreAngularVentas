@@ -1,0 +1,104 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-10 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ingrese informacion</p>
+                
+                <form #providerForm="ngForm" (ngSubmit)="onSubmit(providerForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample" >
+
+                    <div class="container">
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-6 col-lg-6 col-xl-6 mt-3 ml-2">
+                                <label for="tipo_documento"><strong>Tipo documento</strong></label>
+                                <select id="tipo_documento" name="tipo_documento" #tipo_documento="ngModel" [(ngModel)]="provider.tipo_documento" class="form-control" required>
+                                    <option value="0">
+                                        -Seleccione-
+                                    </option>
+                                     
+                                    <option *ngFor="let item of list" value="{{item.value}}">
+                                        {{item.value}}
+                                    </option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="codigo"><strong># Documento</strong></label>
+                                <input type="text" name="num_documento" #num_documento="ngModel" [(ngModel)]="provider.num_documento" autocomplete="off"  class="form-control" placeholder="Ingrese identificador....."  required/>        
+                                <small *ngIf="!num_documento.valid && num_documento.touched" class="invalid-feedback d-block">
+                                    Ingrese identificador
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-3 ml-2">
+                                <label for="nombre"><strong>Nombre</strong></label>
+                                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="provider.nombre" autocomplete="off"  class="form-control" placeholder="Ingrese nombre....." required/>        
+                                <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                                    Ingrese nombre
+                                </small>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="email"><strong>Email</strong></label>
+                                <input type="text" name="email" #email="ngModel" [(ngModel)]="provider.email" class="form-control" placeholder="Ingrese email....." required/>        
+                                <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                                    Ingrese email
+                                </small>
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="telefono"><strong>Teléfono</strong></label>
+                                <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="provider.telefono" class="form-control" placeholder="Ingrese telefono....." required/>        
+                                <small *ngIf="!telefono.valid && telefono.touched" class="invalid-feedback d-block">
+                                    Ingrese telefono
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 ml-2">
+                                <label for="direccion"><strong>Direccion</strong></label>
+                                <input type="text" name="direccion" #direccion="ngModel" [(ngModel)]="provider.direccion" class="form-control" placeholder="Ingrese direccion....." required/>        
+                                <small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block">
+                                    Ingrese direccion
+                                </small>
+                            </div>
+
+                        </div>
+        
+                    </div>
+                    
+                    <div class="ml-2 mt-3">
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text" [disabled]="providerForm.invalid" title="Guardar">
+                            <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                        
+                        <a [routerLink]="['/provider']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+
+                    
+                </form>
+
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>
+
+

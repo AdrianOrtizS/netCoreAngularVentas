@@ -1,0 +1,122 @@
+
+
+
+<div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card">
+  
+        <h3 class="font-weight-bold mt-2 mb-2 ml-2">{{page_title}}</h3>
+  
+        <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn btn-primary btn-icon-text float-right" [routerLink]="['/client-new']" title="Nuevo">
+                <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                Nuevo
+              </button>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-icon-text  " (click)="crearPdf()" title="Exportar Pdf">
+                  <i class="ti-printer btn-icon-prepend" aria-hidden="true"></i>
+                </button>
+            </div>
+          </div>
+        </div>
+  
+        <div class="card-body">
+          
+          <div *ngIf="!clients">
+            <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+          </div>
+          
+  
+          <div *ngIf="clients">
+            <div class="form-group row">
+              <div class="col-md-10">
+                <div class="input-group">
+                  <select class="form-control col-md-3" [(ngModel)]="campoBuscar" (change)="buscarPor()" >
+                    <option value="nombre">Nombre</option>
+                    <option value="num_documento"># Documento</option>
+                  </select>
+                  <input type="text" id="client" name="client" [(ngModel)]="client.nombre"  class="form-control" autocomplete="off" placeholder="Texto a buscar"  >
+                  <button type="button" class="btn btn-info" (click)="searchClient(client.nombre)" title="Buscar">
+                    <i class="ti-search"></i> 
+                  </button>
+                  <button type="button" class="btn btn-light" (click)="getClient(1, this.cantidadRegistrosAMostrar)" title="Recargar">
+                    <i class="ti-reload fa-rotate-90" aria-hidden="true" ></i> 
+                  </button>
+                </div>
+              </div>
+            </div>
+  
+          
+          
+            <div class="table-responsive" >
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                      <th>Opciones</th>
+                      <th>Nombre</th>
+                      <th>Tipo Documento</th>
+                      <th># Documento</th>
+                      <th>Direccion</th>
+                      <th>Telefono</th>
+                      <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cli of clients | paginate: {
+                                                    itemsPerPage: cantidadRegistrosAMostrar,
+                                                    currentPage: paginaActual,
+                                                    totalItems: cantidadTotalRegistros }">
+                    <td >
+                      <!-- Button VIEW-->                 
+                      <button type="button" class="btn btn-outline-success btn-fw btn-rounded btn-icon" [routerLink]="['/client-show',cli.idpersona]" title="Ver">
+                        <i class="ti-eye"></i>
+                      </button>
+                      <!-- Button UPDATE-->                 
+                      <button type="button" class="btn btn-outline-warning btn-fw btn-rounded btn-icon" [routerLink]="['/client-update',cli.idpersona]" title="Actualizar">
+                        <i class="ti-marker-alt"></i>
+                      </button>
+                    </td>
+                    
+                    <td>{{cli.nombre}}</td>
+                    <td>{{cli.tipo_documento}}</td>
+                    <td>{{cli.num_documento}}</td>
+                    <td>{{cli.direccion}}</td>
+                    <td>{{cli.telefono}}</td>
+                    <td>{{cli.email}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+    
+              <div class="form-group-row">
+                <div class="col-md-6 float-left">
+                  <pagination-controls responsive="true"
+                                        previousLabel="Ant"
+                                        nextLabel="Sig"
+                                        (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </div>
+      
+                <div class="col-md-2 float-right">
+                    <select (change)="onTableSizesChanges($event)" class="custom-select">
+                      <option *ngFor="let size of tableSizes" [ngValue]="size">
+                          {{size}}
+                      </option>
+                    </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  

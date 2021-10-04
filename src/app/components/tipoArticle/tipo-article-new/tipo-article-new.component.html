@@ -1,0 +1,52 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-10 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ingrese informacion</p>
+                
+                <form #tipoArticleForm="ngForm" (ngSubmit)="onSubmit(tipoArticleForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample" >
+
+                    <div class="container">
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-3 ml-2">
+                                <label for="tipoArticle"><strong>Tipo articulo</strong></label>
+                                <input type="text" name="tipoArticulo" #tipoArticulo="ngModel" [(ngModel)]="tipoArticle.tipoArticulo" autocomplete="off"  class="form-control" placeholder="Ingrese tipo articulo....." required/>        
+                                <small *ngIf="!tipoArticle.valid && tipoArticle.touched" class="invalid-feedback d-block">
+                                    Ingrese tipo articulo
+                                </small>
+                            </div>
+                        </div>
+                        
+        
+                    </div>
+                    
+                    <div class="ml-2 mt-2">
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text" [disabled]="tipoArticleForm.invalid" title="Guardar">
+                            <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                        
+                        <a [routerLink]="['/tipoArticle']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+
+                    
+                </form>
+
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>
+
+

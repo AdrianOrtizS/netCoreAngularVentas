@@ -1,0 +1,78 @@
+
+
+
+
+
+<div *ngIf="!client.nombre" class="card" style="width: 70%; ">
+    <div class="card-body">
+      <img src="../../../../assets/img/load.jpg" class="rotate_03" id="myimage"  alt="" />
+    </div>
+  </div>
+  
+  
+  
+  
+  <div *ngIf="client.nombre" class="card" style="width: 70%; ">
+    <table>
+      <tr>
+        <td >
+          <div class="card-body">
+            <img *ngIf="!client.foto" src="../../../../assets/img/sin-imagen.png" class="card-img-top " alt="...">
+            <img *ngIf="client.foto" src="{{url+'/Articulos/GetImage/'+client.foto}}" class="card-img-top " alt="...">
+          </div>
+        </td>
+        <td >
+          <div class="card-body">
+            <div class="card-body text-muted">
+              <h5 class="card-title"># Documento</h5>
+              <p class="card-text">
+                {{client.num_documento}}
+              </p>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+   
+    <div class="card-body">
+        <div class="card-columns">
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Nombre</h5>
+              <p class="card-text">
+                {{client.nombre}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Direccion</h5>
+              <p class="card-text">
+                {{client.direccion}}
+              </p>
+            </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Telefono</h5>
+              <p class="card-text">
+                {{client.telefono}}
+              </p>
+              </div>
+          </div>
+          <div class="card ">
+            <div class="card-body text-muted">
+              <h5 class="card-title">Email</h5>
+              <p class="card-text">
+                {{client.email}}
+              </p>
+            </div>
+          </div>
+        </div>
+  
+        <a [routerLink]="['/client']" class="btn btn-primary" title="Cancelar y regresar">
+          <i class="ti-arrow-left" aria-hidden="true"></i>
+        </a>
+  
+    </div>
+  </div>

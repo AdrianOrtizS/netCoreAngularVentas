@@ -1,0 +1,130 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-10 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ingrese informacion</p>
+                
+                <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample" >
+
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-8 col-lg-8 col-xl-8 mt-3 ml-2">
+                                <label for="rol"><strong>Rol</strong></label>
+                                <input type="text" name="rol" value="{{identity.rol}}" readonly="true" class="form-control" />        
+                            
+                            
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 ml-2">
+                                <label for="nombre"><strong>Nombre</strong></label>
+                                <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="user.nombre" autocomplete="off"  class="form-control" placeholder="Ingrese nombre....." required/>        
+                                <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                                    Ingrese nombre
+                                </small>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-6 col-lg-6 col-xl-6 mt-3 ml-2">
+                                <label for="tipo_documento"><strong>Tipo documento</strong></label>
+                                <input type="text" name="tipo_documento" value="{{identity.tipo_documento}}" readonly="true" class="form-control" />
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="num_documento"><strong># Documento</strong></label>
+                                <input type="text" name="num_documento" #num_documento="ngModel" [(ngModel)]="user.num_documento" class="form-control" placeholder="Ingrese numero documento....." required/>        
+                                <small *ngIf="!num_documento.valid && num_documento.touched" class="invalid-feedback d-block">
+                                    Ingrese numero documento
+                                </small>
+                            </div>
+                        </div>
+
+                        
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10 mt-3 ml-2">
+                                <label for="direccion"><strong>Direccion</strong></label>
+                                <input type="text" name="direccion" #direccion="ngModel" [(ngModel)]="user.direccion" class="form-control" placeholder="Ingrese direccion....." required/>        
+                                <small *ngIf="!direccion.valid && direccion.touched" class="invalid-feedback d-block">
+                                    Ingrese tipo direccion
+                                </small>
+                            </div>
+                        </div>
+
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="telefono"><strong>Telefono</strong></label>
+                                <input type="text" name="telefono" #telefono="ngModel" [(ngModel)]="user.telefono" class="form-control" placeholder="Ingrese numero telefono....." required/>        
+                                <small *ngIf="!telefono.valid && telefono.touched" class="invalid-feedback d-block">
+                                    Ingrese numero telefono
+                                </small>
+                            </div>
+
+                            <div class="col-sm-10 col-md-5 col-lg-5 col-xl-5 mt-3 ml-2">
+                                <label for="email"><strong>Email</strong></label>
+                                <input type="text" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" placeholder="Ingrese email....." required/>        
+                                <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                                    Ingrese email
+                                </small>
+                            </div>
+
+                        </div>
+
+
+
+
+                        
+                        <div class="row ">
+                            <div class="col-sm-10 col-md-10 col-lg-12 col-xl-12 mt-4 mb-3">
+                                <label for="foto" ><strong> Foto</strong></label>
+                                <div  *ngIf="user.foto" class="mt-2 mb-3 ml-5">
+                                    <td><img src="{{url + '/Usuarios/GetImage/' + user.foto}}" class="mediana"></td>
+                                </div>  
+    
+                                <div  *ngIf="!user.foto" class="mt-2 mb-3 ml-5">
+                                    <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                                </div>
+                                
+                                
+                                <angular-file-uploader 
+                                    [config]="afuConfig"
+                                    [resetUpload]=resetVar
+                                    (ApiResponse)="imageUpload($event)">
+                                </angular-file-uploader>
+    
+                            </div>
+                        </div>
+        
+                    </div>
+                    
+                    <div class="ml-2 mt-3">
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text" [disabled]="userForm.invalid" title="Guardar">
+                            <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                        
+                        <a [routerLink]="['/home']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+
+                    
+                </form>
+
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>
+
+

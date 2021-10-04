@@ -1,0 +1,154 @@
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ver informacion</p>
+
+                    <div class="container">
+                       
+                        <div class="row ">
+                          <div class="col-sm-10 col-md-4 col-lg-4 col-xl-4 mt-3 ml-2">
+                            <label for="cliente"><strong>Cliente</strong></label>
+                            <div class="form-inline">
+                              <input type="text" class="form-control" name="nombreForm" #nombreForm="ngModel" [(ngModel)]="venta.cliente" readonly>
+                            </div>
+                          </div>
+            
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="num_documento"><strong>Documento: </strong></label>
+                            <input type="text" class="form-control" name="num_documentoForm" #num_documentoForm="ngModel" [(ngModel)]="venta.num_documento" readonly>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="fecha"><strong>Fecha: </strong></label>
+                            <input type="datetime" class="form-control" placeholder="yyyy-mm-dd" name="fecha" #fecha="ngModel" [(ngModel)]="venta.fecha" readonly>
+                          </div>
+                        </div>
+
+
+                        <div class="row ">
+                          <div class="col-sm-10 col-md-6 col-lg-6 col-xl-6 mt-3 ml-2">
+                            <label for="direccion"><strong>Direccion</strong></label>
+                            <div class="form-inline">
+                              <input type="text" class="form-control" name="direccionForm" #direccionForm="ngModel" [(ngModel)]="venta.direccion" readonly>
+                            </div>
+                          </div>
+            
+                          <div class="col-sm-10 col-md-4 col-lg-4 col-xl-4 mt-3 ml-2">
+                            <label for="telefono"><strong>Telefono: </strong></label>
+                            <input type="text" class="form-control" name="telefonoForm" #telefonoForm="ngModel" [(ngModel)]="venta.telefono" readonly>
+                          </div>
+                        </div>
+                        
+
+
+                        <div class="row ">
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="tipo_comprobante"><strong> Tipo comprobante: </strong></label>
+                              <input type="text" class="form-control" name="tipo_comprobante" #tipo_comprobante="ngModel" [(ngModel)]="venta.tipo_comprobante" readonly>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="serie_comprobante"><strong> Serie comprobante: </strong></label>
+                            <input type="text" class="form-control" name="serie_comprobante" #serie_comprobante="ngModel" [(ngModel)]="venta.serie_comprobante" readonly >
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="num_comprobante"><strong> # Comprobante: </strong></label>
+                            <input type="text" class="form-control" name="num_comprobante" #num_comprobante="ngModel" [(ngModel)]="venta.num_comprobante" readonly>
+                          </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="container mt-3">
+
+                      <div class="form-group row ">
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Artículo</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Descuento</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr  *ngFor="let detalle of detalles ; let ind=index">
+                                        <td  >
+                                            {{ind}}
+                                            {{detalles[ind].articulo}}
+                                        </td>
+                                        <td>
+                                            <input readonly name="precio_venta{{ind}}" #precio_venta="ngModel" [(ngModel)]="detalles[ind].precio_venta" type="number"  class="form-control">
+                                        </td>
+                                        <td>
+                                            <input readonly name="cantidad{{ind}}" #cantidad="ngModel" [(ngModel)]="detalles[ind].cantidad" type="number"  class="form-control">
+                                        </td>
+                                        <td>
+                                          <input readonly name="descuento{{ind}}" #descuento="ngModel" [(ngModel)]="detalles[ind].descuento" type="number"  class="form-control">
+                                      </td>
+                                        <td>
+                                            {{detalles[ind].precio_venta * detalles[ind].cantidad  | number : '1.2-2'}}
+                                        </td>
+                                    </tr>
+
+
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Subtotal:</strong></td>
+                                        <td>$ {{venta.subtotal   | number : '1.2-2'}}</td>
+                                    </tr>
+
+                                    <tr style="background-color: #CEECF5;">
+                                      <td colspan="4" align="right"><strong>Descuento:</strong></td>
+                                      <td>$ {{venta.descuento   | number : '1.2-2'}}</td>
+                                    </tr>
+
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Iva 0:</strong></td>
+                                        <td>$ {{ venta.impuesto0 | number : '1.2-2'}}</td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Iva 12:</strong></td>
+                                        <td>$ {{ venta.impuesto12 | number : '1.2-2'}}</td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Total:</strong></td>
+                                        <td>$ {{ venta.total | number : '1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                    </div>
+
+
+
+                    <div class="ml-2 mt-3">
+                        
+                        
+                        <a [routerLink]="['/venta']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                    
+                <!-- </form> -->
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

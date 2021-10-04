@@ -1,0 +1,429 @@
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ingrese informacion</p>
+                
+                <form #ingresoForm="ngForm" (ngSubmit)="onSubmit(ingresoForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 mr-0 pl-0 forms-sample" >
+
+                    <div class="container">
+                        <div class="row ">
+
+                          <div class="col-sm-10 col-md-7 col-lg-7 col-xl-7 mt-3 ml-2">
+
+                            <label for="proveedor"><strong>Proveedor</strong></label>
+                            <div class="form-inline">
+                              <input type="text" class="form-control" name="nombreForm" #nombreForm="ngModel" [(ngModel)]="provider.nombre" readonly>
+
+                              <button type="button" class="btn btn-primary form-control btnagregar" data-toggle="modal" [attr.data-target]="'#abrirModalProveedor'">
+                                  <i class="ti-search"></i>
+                              </button>
+
+
+
+                              <!--   MODAL AGREGAR PROVEEDOR   -->
+                              <!--///////////////////////////-->
+                              <div class="modal fade" id="{{'abrirModalProveedor'}}" tabindex="-1" role="dialog" aria-labelledby="abrirModalProveedorLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-md"  role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="abrirModalProveedorLabel">   Seleccione proveedor</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                              
+                                                <div class="form-group row">
+                                                  <div class="col-md-10">
+                                                    <div class="input-group">
+                                                      
+                                                      <input type="text" id="providerModal" name="providerModal" #providerModal  (keyup)="searchProviderModal($event)" class="form-control" autocomplete="off" placeholder="Texto a buscar"  >
+                                                      <button type="button" class="btn btn-info form-control btnagregar" (click)="searchProviderModal($event)" title="Buscar">
+                                                        <i class="ti-search"></i> 
+                                                      </button>
+                                                      
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              
+                                                <div class="table-responsive" >
+                                                  <table class="table table-hover" *ngIf="providers">
+                                                    <thead>
+                                                      <tr>
+                                                          <th>Opciones</th>
+                                                          <th>Nombre</th>
+                                                      
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr *ngFor="let pro of providers ">
+                                                        <td >
+                                                          <!-- Button SELECT-->                 
+                                                          <button type="button" class="btn btn-outline-success btn-fw btn-rounded btn-icon"  (click)="agregarProviderModal(pro)"  title="Seleccionar">
+                                                            <i class="ti-hand-point-right"></i>
+                                                          </button>
+                                                        </td>
+                                                        
+                                                        <td>{{pro.nombre}}</td>
+                                                      
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                        
+                                                  
+                                                  <div class="modal-footer">
+                                                    <button type="button" id="closeModalProvider" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                  </div>
+
+                                                </div>
+                                              
+
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <!--///////////////////////////-->
+                            
+                            </div>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2  ">
+                            <label for="fecha"><strong>Fecha: </strong></label>
+                            <!-- <input type="datetime" class="form-control" autocomplete="off" name="fecha_hora" #fecha_hora="ngModel" [(ngModel)]="ingreso.fecha_hora" required /> -->
+                            <div class="form-inline">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="fecha" #fecha="ngModel" [(ngModel)]="ingreso.fecha" ngbDatepicker #d="ngbDatepicker">
+                              <button class="btn btn-outline-secondary calendar form-control btnagregar" (click)="d.toggle()" type="button"> <i class="ti-calendar"></i> </button>
+                            </div>
+                            
+                            <!-- <small *ngIf="!fecha_hora.valid && fecha_hora.touched" class="invalid-feedback d-block">
+                              Ingrese fecha
+                            </small> -->
+                          </div>
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="tipo_comprobante"><strong> Tipo comprobante: </strong></label>
+                            <!-- <input type="text" class="form-control" name="tipo_comprobante" #tipo_comprobante="ngModel" [(ngModel)]="ingreso.tipo_comprobante" >
+                             -->
+                            
+                            <select id="tipo_comprobante" name="tipo_comprobante" #tipo_comprobante="ngModel" [(ngModel)]="ingreso.tipo_comprobante" class="form-control" required>
+                              <option value="0">
+                                  -Seleccione-
+                              </option>
+                               
+                              <option *ngFor="let item of list" value="{{item.value}}">
+                                  {{item.value}}
+                              </option>
+                            </select>
+                            
+                            
+                            <small *ngIf="!tipo_comprobante.valid && tipo_comprobante.touched" class="invalid-feedback d-block">
+                              Ingrese tipo comprobante
+                            </small>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="serie_comprobante"><strong> Serie comprobante: </strong></label>
+                            <input type="text" class="form-control" name="serie_comprobante" #serie_comprobante="ngModel" [(ngModel)]="ingreso.serie_comprobante" required>
+                            <small *ngIf="!serie_comprobante.valid && serie_comprobante.touched" class="invalid-feedback d-block">
+                              Ingrese serie comprobante
+                            </small>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="num_comprobante"><strong> # Comprobante: </strong></label>
+                            <input type="text" class="form-control" name="num_comprobante" #num_comprobante="ngModel" [(ngModel)]="ingreso.num_comprobante" required >
+                            <small *ngIf="!num_comprobante.valid && num_comprobante.touched" class="invalid-feedback d-block">
+                              Ingrese numero comprobante
+                            </small>
+                          </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="container mt-3">
+                      <div class=" row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="article"><strong>Artículo</strong> <span style="color:red;" [hidden]="!validararticle">(*Seleccione)</span></label>
+                                <div class="form-inline">
+                 
+                                    <input type="text" class="form-control" autocomplete="off" (keyup)="buscarArticleCodigo(article.codigo)" 
+                                                name="codigo" #codigo="ngModel" [(ngModel)]="article.codigo"  placeholder="Ingrese codigo producto">
+                                                
+                                    <button type="button" class="btn btn-primary form-control btnagregar" data-toggle="modal" [attr.data-target]="'#abrirModal'"><i class="ti-search" aria-hidden="true"></i></button>
+          
+                                    <input type="text" readonly class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="article.nombre">
+                            
+                                </div>
+                            </div>
+                        </div>
+  
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Precio compra <span style="color:red;" [hidden]="!validarprecio_compra" >(Ingrese precio compra)</span></label>
+                                <input type="number" autocomplete="off" name="precio_compra2"  [(ngModel)]="precio_compra2"  value="0" step="any"  class="form-control" >
+                            </div>
+                        </div>
+  
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Cantidad <span style="color:red;" [hidden]="!validarcantidad">(Ingrese cantidad)</span></label>
+                                <input type="number" autocomplete="off" name="cantidad2" [(ngModel)]="cantidad2" value="0"  class="form-control" >
+                            </div>
+                        </div>
+  
+                        <div class="col-md-2">
+                            <div class="form-group">
+                              <!-- <label><span  ></span></label> -->
+                              <br/>                              
+                                <button  class="btn btn-success form-control btnagregar" (click)="agregardetalle($event)">
+                                  
+                                  <i class="ti-plus" aria-hidden="true"></i>
+                                    
+                                </button>
+                            </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="form-group row ">
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Opciones</th>
+                                        <th>Artículo</th>
+                                        <th>Precio compra</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="arrayDetalle.length > 0">
+                                    <tr  *ngFor="let detalle of arrayDetalle ; let ind=index">
+                                        <td>
+                                            <button (click)="eliminardetalle(ind)" type="button" class="btn btn-danger btn-sm">
+                                                <i class="ti-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </td>
+                                        <td  >
+                                            {{ind}}
+                                            {{arrayDetalle[ind].article}}
+                                        </td>
+                                        <td>
+                                            <input required name="precio_compra{{ind}}" #precio_compra="ngModel" [(ngModel)]="arrayDetalle[ind].precio_compra" type="number"  class="form-control">
+                                        </td>
+                                        <td>
+                                            <input required name="cantidad{{ind}}" #cantidad="ngModel" [(ngModel)]="arrayDetalle[ind].cantidad" type="number"  class="form-control">
+                                        </td>
+                                        <td>
+                                            {{arrayDetalle[ind].precio_compra * arrayDetalle[ind].cantidad  | number : '1.2-2'}}
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Subtotal:</strong></td>
+                                        <!-- <td>$ {{valsubtotal   | number : '1.2-2'}}</td> -->
+                                        <td>$ {{valsubtotal[0]  | number : '1.2-2' }}</td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Iva 0:</strong></td>
+                                        <!-- <td>$ {{ valsubtotal  | number : '1.2-2'}}</td> -->
+                                        <td>$ {{ valsubtotal[1]  | number : '1.2-2' }}</td>
+                                    </tr>
+
+                                    <tr style="background-color: #CEECF5;">
+                                      <td colspan="4" align="right"><strong>Iva 12:</strong></td>
+                                      <!-- <td>$ {{ valsubtotal | number : '1.2-2'}}</td> -->
+                                      <td>$ {{ valsubtotal[2] | number : '1.2-2' }}</td>
+                                  </tr>
+                                  <tr style="background-color: #CEECF5;">
+                                        <td colspan="4" align="right"><strong>Total:</strong></td>
+                                        <!-- <td>$ {{ valsubtotal  | number : '1.2-2' }}</td> -->
+                                        <td>$ {{ valsubtotal[3] | number : '1.2-2'  }}</td>
+                                    </tr>
+                                </tbody>
+
+                                <tbody *ngIf="arrayDetalle.length <= 0">
+                                    <tr>
+                                        <td colspan="6">
+                                        <h2>   No hay datos para mostrar.</h2> 
+                                        </td>
+                                    </tr>    
+                                </tbody>
+
+
+                                    <!--   MODAL AGREGAR ARTICULO DETALLES   -->
+                                    <!--///////////////////////////-->
+                                    <!--///////////////////////////-->
+                                    <div class="modal fade" id="{{'abrirModal'}}" tabindex="-1" role="dialog" aria-labelledby="abrirModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="abrirModalLabel" >   Seleccione articulos</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="form-group row">
+                                                        <div class="col-md-8">
+                                                            <div class="input-group">
+                                                              <!--  <label for="">Articulo: </label> -->
+                                                                <input type="text" class="form-control"       (keyup)="buscarproductonombre(article.nombre,1,5)" name="nombre2" #nombre2="ngModel" [(ngModel)]="article.nombre" autocomplete="off"   placeholder="Texto a buscar">
+                                                                <button type="submit" class="btn btn-primary" (click)="buscarproductonombre(article.nombre,1,5)"><i class="fa fa-search"></i> Buscar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="table-response" >
+                                                        <table class="table table-striped table-responsive" *ngIf="articles">
+                                                            <thead>
+                                                                <tr>
+                                                                    <!-- <th scope="col">#</th> -->
+                                                                    <th scope="col" style="width: 60%">Nombre</th>
+                                                                    <th scope="col" style="width: 20%">Precio compra</th>
+                                                                    <th scope="col" style="width: 20%">Stock</th>
+                                                                    <!-- <th scope="col">Tipo</th> -->
+                                                                    <th scope="col" style="width: 20%">Opciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody >
+                                                            <tr *ngFor="let prod of articles | paginate: {
+                                                                                                        itemsPerPage: cantidadRegistrosAMostrar,
+                                                                                                        currentPage: paginaActual,
+                                                                                                        totalItems: cantidadTotalRegistros }">
+                                                                <!-- <td>{{prod.id}}</td> -->
+                                                                <td style="width: 60%">{{prod.nombre | slice : 0:15}}</td>
+                                                                <td style="width: 20%">{{prod.precio_compra}}</td>
+                                                                <td style="width: 20%">{{prod.stock}}</td>
+                                                                <!-- <td>{{prod.tipo}}</td> -->
+                                                                <td style="width: 20%">
+                                                                    <div class="proveedor-buttons">
+                                                                        <!-- <a class="btn btn-info mr-1" (click)="agregarDetalleModal(prod)"   >
+                                                                          <i class="ti-check-box" aria-hidden="true"></i>
+                                                                        </a> -->
+
+                                                                        <button type="button" class="btn btn-info mr-1" data-toggle="modal" [attr.data-target]="'#abrirModalCantidad'+prod.idarticulo" (click)="seleccionarArticuloModal(prod)">
+                                                                          <i class="ti-check-box" aria-hidden="true"></i>
+                                                                        </button>
+                                                                        <!--///////////////////////////-->
+                                                                        <!--///////////////////////////-->
+                                                                        <div class="modal fade" id="{{'abrirModalCantidad'+prod.idarticulo}}" tabindex="-1" role="dialog" aria-labelledby="abrirModalCantidadLabel" aria-hidden="true">
+                                                                          <div class="modal-dialog" role="document">
+                                                                              <div class="modal-content">
+                                                                                  
+                                                                                  <div class="modal-header">
+                                                                                      <h5 class="modal-title" id="abrirModalCantidadLabel" >   Ingrese cantidad y precio compra</h5>
+                                                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                      <span aria-hidden="true">&times;</span>
+                                                                                      </button>
+                                                                                  </div>
+                                                                                  <div class="modal-body">
+                                                                                      <div class="form-group row">
+                                                                                          <div class="col-md-8 ml-5">
+
+                                                                                            <div *ngIf="articuloModal ">
+                                                                                              <h3> <strong>{{articuloModal.nombre}}</strong> </h3>
+                                                                                              <div class="form-group">
+                                                                                                <label for="precio_compra">Precio compra</label>
+                                                                                                <input required name="precio_compra" #precio_compra="ngModel" [(ngModel)]="articuloModal.precio_compra" type="number"  class="form-control">
+                                                                                                <small *ngIf="!precio_compra.valid && precio_compra.touched" class="invalid-feedback d-block">
+                                                                                                    Ingrese precio compra
+                                                                                                </small>
+                                                                                              </div>
+                                                                                              <div class="form-group">
+                                                                                                <label for="cantidad">Cantidad</label>
+                                                                                                <input required name="cantidad" #cantidad="ngModel" [(ngModel)]="articuloModal.cantidad" type="number"  class="form-control">        
+                                                                                                <small *ngIf="!cantidad.valid && cantidad.touched" class="invalid-feedback d-block">
+                                                                                                    Ingrese cantidad
+                                                                                                </small>
+                                                                                              </div>
+                                                                                            </div>
+
+                                                                                          </div>
+                                                                                      </div>
+                                                                                  </div>
+
+
+                                                                                  <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-success" data-dismiss="modal" (click)="agregarDetalleModal()">Agregar a detalle</button>
+                                                                                    
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                  </div>
+                                                                              </div>
+                                                                          </div>
+                                                                        </div>
+                                                                        <!--///////////////////////////-->
+                                                                        <!--///////////////////////////-->
+
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                        <div class="form-group-row" *ngIf="articles">
+                                                            <div class="col-md-10 float-left">
+                                                              <pagination-controls responsive="true"
+                                                                                    previousLabel="Ant"
+                                                                                    nextLabel="Sig"
+                                                                                    (pageChange)="pageChange($event)">
+                                                              </pagination-controls>
+                                                            </div>
+                                      
+                                                            <div class="col-md-2 float-left">
+                                                              <select (change)="onTableSizesChanges($event)" class="custom-select">
+                                                                <option *ngFor="let size of tableSizes" [ngValue]="size">
+                                                                    {{size}}
+                                                                </option>
+                                                              </select>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--///////////////////////////-->
+                                    <!--///////////////////////////-->
+                            </table>
+                        </div>
+                    </div>
+
+                    </div>
+
+                    <div class="ml-2 mt-3">
+                        <button type="submit" class="btn btn-outline-primary btn-icon-text" [disabled]="ingresoForm.invalid" title="Guardar">
+                            <i class="ti-file btn-icon-prepend" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                        
+                        <a [routerLink]="['/ingreso']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                    
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

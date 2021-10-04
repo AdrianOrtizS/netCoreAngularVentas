@@ -1,0 +1,55 @@
+
+    <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+    
+      <i class="ti-bell mx-0">{{contMessage}}</i>
+      <span class="count"></span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown" >
+      <p class="mb-0 font-weight-normal float-left dropdown-header">Notificaciones</p>
+      
+      <!-- <a class="dropdown-item">
+        <div class="item-thumbnail">
+          <div class="item-icon bg-success">
+            <i class="ti-info-alt mx-0"></i>
+          </div>
+        </div>
+        <div class="item-content">
+          <h6 class="font-weight-normal">Error aplicacion</h6>
+          <p class="font-weight-light small-text mb-0 text-muted">
+            Ahora
+          </p>
+        </div>
+      </a>
+        <a class="dropdown-item">
+          <div class="item-thumbnail">
+            <div class="item-icon bg-warning">
+              <i class="ti-settings mx-0"></i>
+            </div>
+          </div>
+          <div class="item-content">
+            <h6 class="font-weight-normal">Configuracion</h6>
+            <p class="font-weight-light small-text mb-0 text-muted">
+              Mensajes privados
+            </p>
+          </div>
+        </a> -->
+        
+        <a class="dropdown-item" *ngFor="let m of messages; let ind= index">
+          <div class="item-thumbnail">
+            <div class="item-icon bg-info">
+              <i class="ti-user mx-0"></i>
+            </div>
+          </div>
+          <div class="item-content"  >
+            <!-- <h6 class="font-weight-normal">Notificacion registros</h6> -->
+
+            <h6 class="font-weight-normal">{{this.messages[ind].messa}}</h6>
+            
+            <p class="font-weight-light small-text mb-0 text-muted">
+              Hace 2 dias
+            </p>
+          </div>
+        </a>
+   
+   </div>
+ 

@@ -1,0 +1,149 @@
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">{{page_title}}</h3>
+                <p class="card-description mt-3 mb-4"> Ver informacion</p>
+<!--                 
+                <form #ingresoForm="ngForm" (ngSubmit)="onSubmit(ingresoForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 mr-0 pl-0 forms-sample" > -->
+
+                    <div class="container">
+                        <div class="row ">
+
+                          <div class="col-sm-10 col-md-7 col-lg-7 col-xl-7 mt-3 ml-2">
+
+                            <label for="proveedor"><strong>Proveedor</strong></label>
+                            <div class="form-inline">
+                              <input type="text" class="form-control" name="proveedor" #proveedor="ngModel" [(ngModel)]="ingreso.proveedor" readonly>
+                              
+                            </div>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2  ">
+                            <label for="fecha"><strong>Fecha: </strong></label>
+                            <!-- <input type="datetime" class="form-control" autocomplete="off" name="fecha_hora" #fecha_hora="ngModel" [(ngModel)]="ingreso.fecha_hora" required /> -->
+                            <div class="form-inline">
+                              <input class="form-control" placeholder="yyyy-mm-dd" name="fecha" #fecha="ngModel" [(ngModel)]="ingreso.fecha" readonly>
+                            </div>
+                            
+                            <!-- <small *ngIf="!fecha_hora.valid && fecha_hora.touched" class="invalid-feedback d-block">
+                              Ingrese fecha
+                            </small> -->
+                          </div>
+                        </div>
+
+                        <div class="row ">
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="tipo_comprobante"><strong> Tipo comprobante: </strong></label>
+                            <!-- <input type="text" class="form-control" name="tipo_comprobante" #tipo_comprobante="ngModel" [(ngModel)]="ingreso.tipo_comprobante" >
+                             -->
+                            
+                             <input type="text" class="form-control" name="tipo_comprobante" #tipo_comprobante="ngModel" [(ngModel)]="ingreso.tipo_comprobante" readonly>
+                            
+                            
+                            <small *ngIf="!tipo_comprobante.valid && tipo_comprobante.touched" class="invalid-feedback d-block">
+                              Ingrese tipo comprobante
+                            </small>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="serie_comprobante"><strong> Serie comprobante: </strong></label>
+                            <input type="text" class="form-control" name="serie_comprobante" #serie_comprobante="ngModel" [(ngModel)]="ingreso.serie_comprobante" readonly >
+                            <small *ngIf="!serie_comprobante.valid && serie_comprobante.touched" class="invalid-feedback d-block">
+                              Ingrese serie comprobante
+                            </small>
+                          </div>
+
+                          <div class="col-sm-10 col-md-3 col-lg-3 col-xl-3 mt-3 ml-2">
+                            <label for="num_comprobante"><strong> # Comprobante: </strong></label>
+                            <input type="text" class="form-control" name="num_comprobante" #num_comprobante="ngModel" [(ngModel)]="ingreso.num_comprobante" readonly>
+                            <small *ngIf="!num_comprobante.valid && num_comprobante.touched" class="invalid-feedback d-block">
+                              Ingrese numero comprobante
+                            </small>
+                          </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="container mt-3">
+                      
+
+
+
+                      <div class="form-group row ">
+                        <div class="table-responsive col-md-12">
+                            <table class="table table-bordered table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Artículo</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr  *ngFor="let detalle of detalles ; let ind=index">
+                     
+                                        <td  >
+                                            {{ind}}
+                                            {{detalles[ind].articulo}}
+                                        </td>
+                                        <td>
+                                            <input readonly name="precio_compra{{ind}}" #precio_compra="ngModel" [(ngModel)]="detalles[ind].precio_compra" type="number"  class="form-control">
+                                        </td>
+                                        <td>
+                                            <input readonly name="cantidad{{ind}}" #cantidad="ngModel" [(ngModel)]="detalles[ind].cantidad" type="number"  class="form-control">
+                                        </td>
+                                        <td>
+                                            {{detalles[ind].precio_compra * detalles[ind].cantidad  | number : '1.2-2'}}
+                                        </td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="3" align="right"><strong>Subtotal:</strong></td>
+                                        <td>$ {{ingreso.total   | number : '1.2-2'}}</td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="3" align="right"><strong>Iva 0:</strong></td>
+                                        <td>$ {{ ingreso.impuesto0 | number : '1.2-2'}}</td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="3" align="right"><strong>Iva 12:</strong></td>
+                                        <td>$ {{ ingreso.impuesto12 | number : '1.2-2'}}</td>
+                                    </tr>
+                                    <tr style="background-color: #CEECF5;">
+                                        <td colspan="3" align="right"><strong>Total:</strong></td>
+                                        <td>$ {{ ingreso.total + ingreso.impuesto12| number : '1.2-2' }}</td>
+                                    </tr>
+                                </tbody>
+
+
+
+                            </table>
+                        </div>
+                    </div>
+
+                    </div>
+
+
+
+                    <div class="ml-2 mt-3">
+                        
+                        
+                        <a [routerLink]="['/ingreso']" class="btn btn-outline-danger btn-icon-text" title="Cancelar y regresar">
+                            <i class="ti-close" aria-hidden="true"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                    
+                <!-- </form> -->
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
